@@ -1,6 +1,8 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. 
 // Aquí deberás desarrollar la lógica para resolver el problema.
 
+var listaDeAmigos = []; // variable universal para reutilizar la lista
+
 function agregarAmigo(){
     // reconoce lo escrito en el input
     let nomAmigo = document.getElementById('amigo').value;
@@ -11,14 +13,14 @@ function agregarAmigo(){
         return regex.test(textoNom);
     };
 
-    if (esSoloLetrasConEspacios(nomAmigo)==false || nomAmigo==' '){
+    if (esSoloLetrasConEspacios(nomAmigo) == false || nomAmigo == ' '){
         alert('Ingrese un nombre válido');
         document.getElementById('amigo').value = ''; // Limpia el input
     }
     else{
         imprimeNombre(nomAmigo); // si la entrada es válida se envía a imprimir
+        listaDeAmigos.push(nomAmigo);
     }
-    
 }
 
 function imprimeNombre(txtNombre){
@@ -27,4 +29,13 @@ function imprimeNombre(txtNombre){
     nuevoLi.textContent = txtNombre; // Asignar el texto del input al <li>
     listaAmigos.appendChild(nuevoLi); // Agregar el <li> a la lista
     document.getElementById('amigo').value = ''; // Limpia el input
+}
+
+function sortearAmigo(){
+    let resultado = document.getElementById('resultado');
+    let listaProvisional = listaDeAmigos; // lista provisional para no perder la lista original
+    let numAleatorio = parseInt(Math.random()*listaProvisional.length);
+
+    resultado.innerHTML = 'El amigo secreto sorteado es: ' + listaProvisional[numAleatorio];
+    listaProvisional.splice(numAleatorio, 1); // elimina el nombre de la lista para que no vuelva a salir
 }
