@@ -17,6 +17,10 @@ function agregarAmigo(){
         alert('Ingrese un nombre válido');
         document.getElementById('amigo').value = ''; // Limpia el input
     }
+    else if(listaDeAmigos.includes(nomAmigo)){
+        alert('Ya existe un amigo con el mismo nombre')
+        document.getElementById('amigo').value = ''; // Limpia el input
+    }
     else{
         imprimeNombre(nomAmigo); // si la entrada es válida se envía a imprimir
         listaDeAmigos.push(nomAmigo);
@@ -32,10 +36,15 @@ function imprimeNombre(txtNombre){
 }
 
 function sortearAmigo(){
-    let resultado = document.getElementById('resultado');
+    if (listaDeAmigos.length==0) {
+        alert('No tiene amigos para sortear en la lista')
+    }
+    else{
+        let resultado = document.getElementById('resultado');
     let listaProvisional = listaDeAmigos; // lista provisional para no perder la lista original
     let numAleatorio = parseInt(Math.random()*listaProvisional.length);
 
     resultado.innerHTML = 'El amigo secreto sorteado es: ' + listaProvisional[numAleatorio];
     listaProvisional.splice(numAleatorio, 1); // elimina el nombre de la lista para que no vuelva a salir
+    }
 }
